@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Currency.h" />
+    <ClInclude Include="Dollar.h" />
     <ClInclude Include="LinkNode.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="SinglyLinkedList.h" />

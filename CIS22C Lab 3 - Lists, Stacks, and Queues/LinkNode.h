@@ -3,7 +3,14 @@
 *  Spencer Bledsoe
 */
 #pragma once
-class LinkNode
-{
+#include "Currency.h"
+
+class LinkNode {
+	private:
+		Currency* data;
+		LinkNode* next;
+
+	public:
+
 };
 

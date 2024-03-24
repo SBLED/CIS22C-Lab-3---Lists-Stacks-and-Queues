@@ -3,6 +3,15 @@
 *  Spencer Bledsoe
 */
 #pragma once
-class SinglyLinkedList {
+#include "LinkNode.h"
 
+class SinglyLinkedList {
+	private:
+		int count;
+		LinkNode* start;
+		LinkNode* end;
+
+	public:
+		LinkNode* getStart() { return start;  } //Check this logic, or if these are needed at all
+		LinkNode* getEnd() { return end; } //Check this logic
 };
