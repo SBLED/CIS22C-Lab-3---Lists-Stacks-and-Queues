@@ -4,7 +4,7 @@
 */
 #pragma once
 #include "SinglyLinkedList.h"
-class Queue {
+class Queue : SinglyLinkedList {
 	private:
 
 	public:

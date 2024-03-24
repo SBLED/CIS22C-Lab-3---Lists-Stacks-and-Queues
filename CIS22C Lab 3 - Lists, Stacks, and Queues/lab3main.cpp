@@ -12,6 +12,7 @@
 using namespace std;
 
 void Welcome();
+void Goodbye();
 
 int main()
 {
@@ -25,12 +26,28 @@ int main()
         currArray[i] = new Dollar(initValArr[i]);
     }
 
+    //Create SinglyLinkedList
+    SinglyLinkedList sLinkList();
+    //Create Stack
+    //Stack labStack();
+    //Create Queue
+    //Queue labQueue();
+
+    for (int i = 0; i < 20; i++) {
+        delete currArray[i];
+    }
+
+    Goodbye();
     system("pause");
     return 0;
 }
 
 void Welcome() {
     cout << "Lab 3 - Lists, Stacks, and Queues\n" << "Solution by Spencer Bledsoe\n" << endl;
+    return;
+}
 
+void Goodbye() {
+    cout << "Exiting program..." << endl;
     return;
 }

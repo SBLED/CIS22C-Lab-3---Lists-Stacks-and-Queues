@@ -5,12 +5,9 @@
 #pragma once
 #include "Currency.h"
 
-class LinkNode {
-	private:
+struct LinkNode {
+public:
 		Currency* data;
 		LinkNode* next;
-
-	public:
-
 };
 
