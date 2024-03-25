@@ -27,15 +27,52 @@ int main()
     }
 
     //Create SinglyLinkedList
-    SinglyLinkedList sLinkList();
+    SinglyLinkedList sLinkList;
     //Create Stack
-    //Stack labStack();
+    Stack labStack;
     //Create Queue
-    //Queue labQueue();
+    Queue labQueue;
 
     for (int i = 0; i < 20; i++) {
         delete currArray[i];
     }
+    //////////////////////  FOR LINKED LIST     ////////////////////////////////
+    //add first 7 array obj into linkedlist (reverse order: 7th element = head, 1st = end)
+    int j = 6;
+    for (int i = 0; i < 6; i++) {
+        sLinkList.addCurrency(*currArray[j], i);
+        j--;
+    }
+    //Search for $87.43, print result
+    // Search for $44.56, print result
+    //Search for and remove node containing $111.22
+    //Remove node at index 2
+    //Print list contents
+    //Add next 4 obj (9-12) such that their index in the linkedlist is calculated as (index in array % 5)
+    //Remove object at index (countCurrency % 6)
+    //Remove object at index (countCurrency / 7)
+    //Print contents of list.
+    //////////////////////////////////////////////////////////////////////////
+
+    //////////////////////  FOR STACK   //////////////////////////////////////////////
+    //Push 7 objects starting from array index 13, onwards to the stack
+    // Peek top of stack and print result
+    // Perform 3 pops in succession
+    // Print contents of stack
+    // Push 5 more objects from the start of the objects array to the stack
+    // Pop twice in succession
+    // Print contents of stack
+    //////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////  FOR QUEUE   //////////////////////////////////////////////
+    //Enqueue the seven (7) objects at odd indexes starting from index 5 in the array.
+    //Peek the front and end of the queue - print the results.
+    //Perform two(2) dequeues in succession.
+    //Print the contents of the queue.
+    //Enqueue five(5) more objects from the index 10 in the array.
+    //Dequeue three times in succession.
+    //Print the contents of the queue.
+    //////////////////////////////////////////////////////////////////////////////////
 
     Goodbye();
     system("pause");
