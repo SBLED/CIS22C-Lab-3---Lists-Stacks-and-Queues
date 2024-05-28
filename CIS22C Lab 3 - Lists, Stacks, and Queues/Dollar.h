@@ -3,13 +3,19 @@
 *  Spencer Bledsoe
 */
 
+/*****************************************************************************
+							CODE MODIFIED FROM PREVIOUS LAB
+
+	- "const" added to currType, ensuring no unwanted modifications.
+*****************************************************************************/
+
 #pragma once
 #include "Currency.h"
 #include <string>
 
 class Dollar : public Currency {
 private:
-	std::string currType = "Dollar";
+	const std::string currType = "Dollar";
 
 public:
 	//Constructor Declarations (Default, All Param, Copy)

@@ -8,8 +8,12 @@
 #include <sstream>
 class Queue : SinglyLinkedList {
 public:
-    //enqueue which takes a Currency object as parameter and adds it to the end of the queue.
+
     void enqueue(Currency& currObj) {
+        /*Pre: Currency object input parameter must not be NULL.
+        Post: Adds the currency object input to the end of the queue
+        */
+
         LinkNode* newNode = new LinkNode();
         newNode->data = &currObj;
 
@@ -26,41 +30,46 @@ public:
         return;
     }
 
-    //dequeue which takes no parameter and removes and returns the Currency object from the front of the queue.
-    Currency& dequeue() {
-        Currency* temp;
+    Currency* dequeue() {
+        /*Pre: Queue must not be empty.
+        Post: Returns the currency object from the front of the queue
+        */
+
         try {
             if (count == 0) {
-                throw ("No_Such_Element");
+                throw std::runtime_error("No_Such_Element");
             }
 
-            else if (count == 1) {
-                temp = start->data;
+            Currency* temp = start->data;
+            LinkNode* currNode = start;
+
+            if (count == 1) {
                 start = NULL;
                 end = NULL;
                 count = 0;
             }
 
             else {
-                temp = start->data;
                 start = start->next;
                 count--;
             }
+            delete currNode;
+            return temp;
         }
-        catch (std::string r) {
-            std::cout << "Error: " << r << std::endl;
+        catch (std::runtime_error& excpt) {
+            std::cout << "Error: " << excpt.what() << std::endl;
         }
-        return *temp;
     }
+
     //peekFront which takes no parameter and returns a copy of the Currency object at the front of the queue.
     const Currency* peekFront() {
         try {
             if (count == 0) {
-                throw ("No_Such_Element");
+                throw std::runtime_error("No_Such_Element");
             }
         }
-        catch (std::string s) {
-            std::cout << "Error: " << s << std::endl;
+        catch (std::runtime_error& excpt) {
+            std::cout << "Error: " << excpt.what() << std::endl;
         }
         return start->data;
     }
@@ -68,13 +77,15 @@ public:
     const Currency* peekRear() {
         try {
             if (count == 0) {
-                throw ("No_Such_Element");
+                throw std::runtime_error("No_Such_Element");
             }
+            return end->data;
         }
-        catch (std::string t) {
-            std::cout << "Error: " << t << std::endl;
+
+        catch (std::runtime_error& excpt) {
+            std::cout << "Error: " << excpt.what() << std::endl;
+            return NULL;
         }
-        return end->data;
     }
 
     //printQueue method which returns a string signifying the contents of the queue from front to end, tab spaced.
@@ -84,12 +95,11 @@ public:
      */
     std::string printQueue() {
         std::stringstream ss;
-        std::string str;
         LinkNode* temp = start;
         while (temp != NULL) {
-            ss << temp->data << "\t";
+            ss << *(temp->data) << "\t";
             temp = temp->next;
         }
-        return str;
+        return ss.str();
     }
 };

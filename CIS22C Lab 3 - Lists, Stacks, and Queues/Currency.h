@@ -3,6 +3,16 @@
 *  Spencer Bledsoe
 */
 
+/*************************************************************************************************************************************************************************
+													CODE MODIFIED FROM PREVIOUS LAB
+
+	- Exception handling changed to throw/catch invalid_argument type instead of string type per exception handling guidelines in Zybooks Ch 1.51.
+		- Affects add(), subtract(), ==(), >(), <()
+	- Subtraction Method now handles negative coin values properly with the addition of a new "if" statement.
+	- New logic for <(), >() overloads to correct logic errors. Old implementation for '>' would return false if currency > secondObj.currency if coin < secondObj.coin
+	- Added a "friend" function to overload << ostream operator.
+*************************************************************************************************************************************************************************/
+
 #pragma once
 #include <string>
 #include <iomanip>
@@ -49,18 +59,19 @@ public:
 	void add(Currency& newCurr) {
 		try {
 			if (this->getType() == newCurr.getType()) {
-				currency = currency + newCurr.getCurr(); coin = coin + newCurr.getCoin();
+				currency = currency + newCurr.getCurr();
+				coin = coin + newCurr.getCoin();
 				if (coin > 99) {
 					coin = coin - 100;
 					currency++;
 				}
 			}
 			else {
-				throw ("addition");
+				throw std::invalid_argument("addition");
 			}
 		}
-		catch (std::string a) {
-			std::cout << "Invalid " << a << std::endl;
+		catch (std::invalid_argument& excpt) {
+			std::cout << "Invalid " << excpt.what() << std::endl;
 		}
 
 		return;
@@ -68,14 +79,20 @@ public:
 	void subtract(Currency& newCurr) {
 		try {
 			if (this->isGreater(&newCurr) || this->isEqual(&newCurr)) {
-				currency = currency - newCurr.getCurr(); coin = coin - newCurr.getCoin();
+				currency = currency - newCurr.getCurr();
+				coin = coin - newCurr.getCoin();
+
+				if (coin < 0) {
+					coin = coin + 100;
+					currency--;
+				}
 			}
 			else {
-				throw std::string("subtraction");
+				throw std::invalid_argument("subtraction");
 			}
 		}
-		catch (std::string s) {
-			std::cout << "Invalid " << s << std::endl;
+		catch (std::invalid_argument& excpt) {
+			std::cout << "Invalid " << excpt.what() << std::endl;
 		}
 
 		return;
@@ -83,14 +100,19 @@ public:
 	/*Pre: y.currType == this.currType
 	* Post: returns comparison output
 	*/
-	bool isEqual(Currency* y) const { return (this == y); } //These two functions are having issues. Will continue troubleshooting.
-	bool isGreater(Currency* y) const { return (this > y); } //returns true if this > input obj
+	bool isEqual(Currency* y) const { return (this == y); }
+	bool isGreater(Currency* y) const { return (this > y); }
 	/*Pre: None
 	Post: Prints this.currency && this.coin to console.
 	*/
 	void print() {
 		std::cout << getCurr() << "." << std::setw(2) << std::setfill('0') << std::right << getCoin() << " " << getType();
 		return;
+	}
+
+	friend std::ostream& operator<<(std::ostream& os, const Currency& curr) {
+		os << curr.getCurr() << "." << std::setw(2) << std::setfill('0') << curr.getCoin() << " " << curr.getType();
+		return os;
 	}
 
 };
@@ -109,11 +131,11 @@ bool Currency::operator==(const Currency& y) const {
 			}
 		}
 		else {
-			throw char('=');
+			throw std::invalid_argument("==");
 		}
 	}
-	catch (char z) {
-		std::cout << "Invalid comparison: Currency Type Mismatch for operator " << z << z << std::endl;
+	catch (std::invalid_argument& excpt) {
+		std::cout << "Invalid comparison: Currency Type Mismatch for operator " << excpt.what() << std::endl;
 		return false;
 	}
 
@@ -125,14 +147,25 @@ bool Currency::operator > (const Currency& y) const {
 	*/
 	try {
 		if (this->getType() == y.getType()) {
-			return (this->getCurr() > y.getCurr()) && (this->getCoin() > y.getCoin());
+
+			if (this->getCurr() > y.getCurr()) {
+				return true;
+			}
+
+			else if (this->getCurr() == y.getCurr()) {
+				return (this->getCoin() > y.getCoin());
+			}
+
+			else {
+				return false;
+			}
 		}
 		else {
-			throw char('>');
+			throw std::invalid_argument(">");
 		}
 	}
-	catch (char z) {
-		std::cout << "Invalid comparison: Currency Type Mismatch for operator " << z << std::endl;
+	catch (std::invalid_argument& excpt) {
+		std::cout << "Invalid comparison: Currency Type Mismatch for operator " << excpt.what() << std::endl;
 		return false;
 	}
 }
@@ -143,14 +176,26 @@ bool Currency::operator < (const Currency& y) const {
 	*/
 	try {
 		if (this->getType() == y.getType()) {
-			return (this->getCurr() < y.getCurr()) && (this->getCoin() < y.getCoin());
+
+			if (this->getCurr() < y.getCurr()) {
+				return true;
+			}
+
+			else if (this->getCurr() == y.getCurr()) {
+				return (this->getCoin() < y.getCoin());
+			}
+
+			else {
+				return false;
+			}
 		}
 		else {
-			throw char('<');
+			throw std::invalid_argument("<");
 		}
+
 	}
-	catch (char z) {
-		std::cout << "Invalid comparison: Currency Type Mismatch for operator " << z << std::endl;
+	catch (std::invalid_argument& excpt) {
+		std::cout << "Invalid comparison: Currency Type Mismatch for operator " << excpt.what() << std::endl;
 		return false;
 	}
 }
