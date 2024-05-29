@@ -64,6 +64,10 @@ public:
 
     //peekFront which takes no parameter and returns a copy of the Currency object at the front of the queue.
     Currency* peekFront() {
+        /*Pre: Queue must not be empty.
+        Post: Returns a copy of the Currency object at the front of the queue.
+        */
+
         try {
             if (count == 0) {
                 throw std::runtime_error("No_Such_Element");
@@ -76,6 +80,9 @@ public:
     }
     //peekRear which takes no parameter and returns a copy of the Currency object at the end of the queue.
     Currency* peekRear() {
+        /*Pre: Queue must not be empty.
+        Post: Returns a copy of the Currency object at the rear of the queue.
+        */
         try {
             if (count == 0) {
                 throw std::runtime_error("No_Such_Element");
