@@ -211,14 +211,14 @@ class SinglyLinkedList {
 				if (count > 0) {
 					LinkNode* iterator = start;
 					while (iterator != NULL) {
-						if (iterator->data == &currObj) {
+						if (*(iterator->data) == currObj) {
 							return index;
 						}
 						index++;
 						iterator = iterator->next;
 					}
 				}
-				return -1;
+				return -1; // Currency object not found
 			}
 
 			catch (std::invalid_argument& excpt) {

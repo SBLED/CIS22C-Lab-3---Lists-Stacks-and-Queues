@@ -122,16 +122,12 @@ bool Currency::operator==(const Currency& y) const {
 	Post: returns comparison
 	*/
 	try {
-		if (getType() == y.getType()) {
-			if ((this->getCurr() == y.getCurr()) && (this->getCoin() == y.getCoin())) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-		else {
+		if (this->getType() != y.getType()) {
 			throw std::invalid_argument("==");
+		}
+
+		else {
+			return (this->getCurr() == y.getCurr() && this->getCoin() == y.getCoin());
 		}
 	}
 	catch (std::invalid_argument& excpt) {
@@ -146,23 +142,22 @@ bool Currency::operator > (const Currency& y) const {
 	Post: returns comparison output
 	*/
 	try {
-		if (this->getType() == y.getType()) {
-
-			if (this->getCurr() > y.getCurr()) {
-				return true;
-			}
-
-			else if (this->getCurr() == y.getCurr()) {
-				return (this->getCoin() > y.getCoin());
-			}
-
-			else {
-				return false;
-			}
-		}
-		else {
+		if (this->getType() != y.getType()) {
 			throw std::invalid_argument(">");
 		}
+
+		if (this->getCurr() > y.getCurr()) {
+			return true;
+		}
+
+		else if (this->getCurr() == y.getCurr()) {
+			return (this->getCoin() > y.getCoin());
+		}
+
+		else {
+			return false;
+		}
+
 	}
 	catch (std::invalid_argument& excpt) {
 		std::cout << "Invalid comparison: Currency Type Mismatch for operator " << excpt.what() << std::endl;
@@ -175,22 +170,20 @@ bool Currency::operator < (const Currency& y) const {
 	Post: returns comparison output
 	*/
 	try {
-		if (this->getType() == y.getType()) {
-
-			if (this->getCurr() < y.getCurr()) {
-				return true;
-			}
-
-			else if (this->getCurr() == y.getCurr()) {
-				return (this->getCoin() < y.getCoin());
-			}
-
-			else {
-				return false;
-			}
+		if (getType() != y.getType()) {
+			throw std::invalid_argument(">");
 		}
+
+		if (this->getCurr() < y.getCurr()) {
+			return true;
+		}
+
+		else if (this->getCurr() == y.getCurr()) {
+			return (this->getCoin() < y.getCoin());
+		}
+
 		else {
-			throw std::invalid_argument("<");
+			return false;
 		}
 
 	}

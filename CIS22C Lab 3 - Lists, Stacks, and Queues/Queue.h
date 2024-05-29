@@ -6,7 +6,7 @@
 #include "SinglyLinkedList.h"
 #include <string>
 #include <sstream>
-class Queue : SinglyLinkedList {
+class Queue : public SinglyLinkedList {
 public:
 
     void enqueue(Currency& currObj) {
@@ -58,11 +58,12 @@ public:
         }
         catch (std::runtime_error& excpt) {
             std::cout << "Error: " << excpt.what() << std::endl;
+            return NULL;
         }
     }
 
     //peekFront which takes no parameter and returns a copy of the Currency object at the front of the queue.
-    const Currency* peekFront() {
+    Currency* peekFront() {
         try {
             if (count == 0) {
                 throw std::runtime_error("No_Such_Element");
@@ -74,7 +75,7 @@ public:
         return start->data;
     }
     //peekRear which takes no parameter and returns a copy of the Currency object at the end of the queue.
-    const Currency* peekRear() {
+    Currency* peekRear() {
         try {
             if (count == 0) {
                 throw std::runtime_error("No_Such_Element");

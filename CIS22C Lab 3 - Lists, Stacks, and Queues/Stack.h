@@ -4,7 +4,7 @@
 */
 #pragma once
 #include "SinglyLinkedList.h"
-class Stack : SinglyLinkedList {
+class Stack : public SinglyLinkedList {
 	public:
 
 		void push(Currency& currObj) {
