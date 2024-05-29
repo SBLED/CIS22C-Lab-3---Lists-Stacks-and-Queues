@@ -84,7 +84,12 @@ class Stack : SinglyLinkedList {
 			Post:  Returns a string signifying the contents of the stack from top to bottom, tab spaced.
 			*/
 			try {
-				if (start != NULL) {
+
+				if (count == 0) {
+					throw std::runtime_error("printStack() called on empty stack.");
+				}
+
+				else {
 					std::stringstream ss;
 					LinkNode* temp = start;
 					while (temp != NULL) {
@@ -92,10 +97,6 @@ class Stack : SinglyLinkedList {
 						temp = temp->next;
 					}
 					return ss.str();
-				}
-
-				else {
-					throw std::runtime_error("printStack() called on empty stack.");
 				}
 			}
 

@@ -94,12 +94,29 @@ public:
      * @return a String of Queue values
      */
     std::string printQueue() {
-        std::stringstream ss;
-        LinkNode* temp = start;
-        while (temp != NULL) {
-            ss << *(temp->data) << "\t";
-            temp = temp->next;
+        /*Pre: List must not be empty.
+        Post:  Returns a string signifying the contents of the List from start to end, tab spaced.
+        */
+
+        try {
+            if (count == 0) {
+                throw std::runtime_error("printQueue() called on empty list.");
+            }
+
+            else {
+                std::stringstream ss;
+                LinkNode* temp = start;
+                while (temp != NULL) {
+                    ss << *(temp->data) << "\t";
+                    temp = temp->next;
+                }
+                return ss.str();
+            }
         }
-        return ss.str();
+
+        catch (std::runtime_error& excpt) {
+            std::cout << "Error: " << excpt.what() << std::endl;
+            return NULL;
+        }
     }
 };

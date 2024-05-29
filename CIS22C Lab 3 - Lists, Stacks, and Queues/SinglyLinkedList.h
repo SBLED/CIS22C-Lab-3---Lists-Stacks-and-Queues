@@ -259,6 +259,10 @@ class SinglyLinkedList {
 
 			try {
 				if (count == 0) {
+					throw std::runtime_error("printList() called on empty list.");
+				}
+
+				else {
 					std::stringstream ss;
 					LinkNode* temp = start;
 					while (temp != NULL) {
@@ -267,15 +271,11 @@ class SinglyLinkedList {
 					}
 					return ss.str();
 				}
-
-				else {
-					throw std::runtime_error("printList() called on empty list.");
-				}
 			}
 
 			catch (std::runtime_error& excpt) {
 				std::cout << "Error: " << excpt.what() << std::endl;
-				return NULL;
+				return NULL; // This is crashing the program.
 			}
 
 		}

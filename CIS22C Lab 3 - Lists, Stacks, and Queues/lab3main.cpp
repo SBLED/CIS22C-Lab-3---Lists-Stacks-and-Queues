@@ -27,7 +27,7 @@ int main()
     }
 
     //Create SinglyLinkedList
-    SinglyLinkedList sLinkList;
+    SinglyLinkedList* sLinkList = new SinglyLinkedList();
     //Create Stack
     Stack labStack;
     //Create Queue
@@ -39,19 +39,48 @@ int main()
     //////////////////////  FOR LINKED LIST     ////////////////////////////////
     //add first 7 array obj into linkedlist (reverse order: 7th element = head, 1st = end)
     int j = 6;
-    for (int i = 0; i < 6; i++) {
-        sLinkList.addCurrency(*currArray[j], i);
+    for (int i = 0; i < 7; i++) { // Check if i must be 6 or 7
+        sLinkList->addCurrency(*currArray[j], i);
         j--;
     }
+
     //Search for $87.43, print result
+    Dollar srchCurr1 = 87.43;
+    cout << "Search SinglyLinkedList for $";
+    srchCurr1.print();
+    cout << " Result index : " << sLinkList->findCurrency(srchCurr1) << endl;
+
     // Search for $44.56, print result
+    Dollar srchCurr2 = 44.56;
+    cout << "Search SinglyLinkedList for $";
+    srchCurr2.print();
+    cout << " Result index : " << sLinkList->findCurrency(srchCurr2) << endl;
+
     //Search for and remove node containing $111.22
+    Dollar srchCurr3 = 111.22;
+    sLinkList->removeCurrency(srchCurr3);
+    
     //Remove node at index 2
+    sLinkList->removeCurrency(2);
+    
     //Print list contents
+    cout << "List contents: " << sLinkList->printList() << endl;
+    
     //Add next 4 obj (9-12) such that their index in the linkedlist is calculated as (index in array % 5)
+    for (int i = 8; i < 12; i++) {
+        sLinkList->addCurrency(*currArray[i], i % 5);
+    }
+    
     //Remove object at index (countCurrency % 6)
+    sLinkList->removeCurrency(sLinkList->getCount() % 6);
+    
     //Remove object at index (countCurrency / 7)
+    sLinkList->removeCurrency(sLinkList->getCount() / 7);
+
     //Print contents of list.
+    cout << "List contents: " << sLinkList->printList() << endl;
+    
+    delete sLinkList;
     //////////////////////////////////////////////////////////////////////////
 
     //////////////////////  FOR STACK   //////////////////////////////////////////////
@@ -73,6 +102,10 @@ int main()
     //Dequeue three times in succession.
     //Print the contents of the queue.
     //////////////////////////////////////////////////////////////////////////////////
+
+    for (int i = 0; i < 20; i++) {
+        delete currArray[i];
+    }
 
     Goodbye();
     system("pause");
